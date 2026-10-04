@@ -1,8 +1,8 @@
 # Assignment 2 - Data Structures: In-Memory Workload Engine
 
 Course: Design and Analysis of Algorithms
-Student: NAME SURNAME, GROUP
-Repository: GITHUB_LINK (branch `main`, tag `v1.0`)
+Student: MAKHAN SABINA
+Repository: https://github.com/makhan8sabina/DAA2 (branch `main`, tag `v1.0`)
 
 ## 1. Implementation Overview
 
