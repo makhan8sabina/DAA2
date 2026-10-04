@@ -17,27 +17,32 @@ public class MinHeap {
         return size;
     }
 
+    public boolean isHeap() {
+        for (int i = 1; i < size; i++) {
+            if (data[(i - 1) / 2] > data[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void ensureCapacity() {
         if (size == data.length) {
             int[] newData = new int[data.length * 2];
-
             for (int i = 0; i < size; i++) {
                 metrics.steps++;
                 metrics.moves++;
                 newData[i] = data[i];
             }
-
             data = newData;
         }
     }
 
     public void insert(int element) {
         ensureCapacity();
-
         data[size] = element;
         metrics.moves++;
         size++;
-
         bubbleUp(size - 1);
     }
 
@@ -61,9 +66,7 @@ public class MinHeap {
         if (size == 0) {
             throw new IllegalStateException("Heap is empty");
         }
-
         metrics.steps++;
-
         return data[0];
     }
 
@@ -73,11 +76,9 @@ public class MinHeap {
         }
 
         metrics.steps++;
-
         int min = data[0];
 
         data[0] = data[size - 1];
-
         metrics.steps++;
         metrics.moves++;
 
@@ -86,7 +87,6 @@ public class MinHeap {
         if (size > 0) {
             bubbleDown(0);
         }
-
         return min;
     }
 
@@ -99,7 +99,6 @@ public class MinHeap {
             if (leftChild < size) {
                 metrics.steps += 2;
                 metrics.comparisons++;
-
                 if (data[leftChild] < data[smallest]) {
                     smallest = leftChild;
                 }
@@ -108,7 +107,6 @@ public class MinHeap {
             if (rightChild < size) {
                 metrics.steps += 2;
                 metrics.comparisons++;
-
                 if (data[rightChild] < data[smallest]) {
                     smallest = rightChild;
                 }
@@ -125,11 +123,9 @@ public class MinHeap {
 
     private void swap(int i, int j) {
         metrics.steps += 2;
-
         int temp = data[i];
         data[i] = data[j];
         data[j] = temp;
-
         metrics.moves += 2;
     }
 }
