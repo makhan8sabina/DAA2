@@ -2,7 +2,7 @@ package structures;
 
 import metrics.MetricsTracker;
 
-public class MyLinkedList {
+public class MyLinkedList implements IntList {
     private static class Node {
         int data;
         Node next;
@@ -54,7 +54,7 @@ public class MyLinkedList {
         Node newNode = new Node(element);
         if (index == 0) {
             newNode.next = head;
-            if (head != null) head.prev = newNode;
+            head.prev = newNode;
             head = newNode;
             metrics.moves += 3;
         } else {
@@ -98,19 +98,18 @@ public class MyLinkedList {
 
         if (prevNode == null) {
             head = nextNode;
-            metrics.moves++;
         } else {
             prevNode.next = nextNode;
-            metrics.moves++;
         }
+        metrics.moves++;
 
         if (nextNode == null) {
             tail = prevNode;
-            metrics.moves++;
         } else {
             nextNode.prev = prevNode;
-            metrics.moves++;
         }
+        metrics.moves++;
+
         size--;
         return target.data;
     }
