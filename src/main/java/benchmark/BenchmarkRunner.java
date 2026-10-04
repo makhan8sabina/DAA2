@@ -23,7 +23,6 @@ public class BenchmarkRunner {
         if (!dir.exists()) dir.mkdirs();
 
         try (PrintWriter writer = new PrintWriter(new FileWriter("results/results.csv"))) {
-            // Ровно 8 столбцов без запятой на конце!
             writer.println("workload,variant,structure,n,time_ms,steps,moves,comparisons");
 
             for (int n : SIZES) {
@@ -52,7 +51,6 @@ public class BenchmarkRunner {
         });
         writeRow(w, "W1", "-", "DynamicArray", n, rDA);
 
-        // MyLinkedList
         BenchmarkResult rLL = runWithMedian(() -> {
             Random rnd = new Random(42);
             MetricsTracker m = new MetricsTracker();
@@ -77,7 +75,6 @@ public class BenchmarkRunner {
         for (int i = 0; i < 500; i++) queries[i] = dataset[rndSetup.nextInt(n)];
         for (int i = 500; i < 1000; i++) queries[i] = -1 - i;
 
-        // DynamicArray
         BenchmarkResult rDA = runWithMedian(() -> {
             MetricsTracker m = new MetricsTracker();
             DynamicArray da = new DynamicArray(m);
@@ -91,7 +88,6 @@ public class BenchmarkRunner {
         });
         writeRow(w, "W2", "-", "DynamicArray", n, rDA);
 
-        // MyLinkedList
         BenchmarkResult rLL = runWithMedian(() -> {
             MetricsTracker m = new MetricsTracker();
             MyLinkedList list = new MyLinkedList(m);
@@ -110,7 +106,6 @@ public class BenchmarkRunner {
         String[] variants = {"head", "middle"};
 
         for (String var : variants) {
-            // DynamicArray
             BenchmarkResult rDA = runWithMedian(() -> {
                 Random rnd = new Random(42);
                 MetricsTracker m = new MetricsTracker();
@@ -132,7 +127,6 @@ public class BenchmarkRunner {
             });
             writeRow(w, "W3", var, "DynamicArray", n, rDA);
 
-            // MyLinkedList
             BenchmarkResult rLL = runWithMedian(() -> {
                 Random rnd = new Random(42);
                 MetricsTracker m = new MetricsTracker();
@@ -185,7 +179,6 @@ public class BenchmarkRunner {
 
     private static void writeRow(PrintWriter w, String workload, String variant, String struct, int n, BenchmarkResult r) {
         double timeMs = r.timeUs / 1000.0;
-        // Строго 8 значений через запятую с англ. точкой в числах
         w.println(String.format(Locale.US, "%s,%s,%s,%d,%.3f,%d,%d,%d",
                 workload, variant, struct, n, timeMs, r.steps, r.moves, r.comparisons));
     }
